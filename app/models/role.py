@@ -12,6 +12,13 @@ class Role(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    # Relationship to Permission through RolePermission
+    permissions = db.relationship(
+        'Permission',
+        secondary='role_permissions',
+        backref=db.backref('roles', lazy='dynamic')
+    )
+
     def to_dict(self):
         return {
             'roleID': self.id,

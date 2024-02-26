@@ -23,6 +23,11 @@ class User(db.Model, UserMixin):
 
     # Relationships
     subscriptions = db.relationship('Subscription', backref='user', lazy=True)
+    notifications = db.relationship('Notification', backref='target_user', lazy=True)
+    notification_preferences = db.relationship('NotificationPreference', backref='user', lazy=True)
+    consent_logs = db.relationship('ConsentLog', backref='user', lazy=True)
+    favorites = db.relationship('Favorites', backref='user', lazy=True)
+    roles = db.relationship('Role', secondary='user_roles', backref=db.backref('users', lazy='dynamic'))
 
     @property
     def password(self):
@@ -47,39 +52,3 @@ class User(db.Model, UserMixin):
             'createdDate': self.createdDate.isoformat(),
             'updatedDate': self.updatedDate.isoformat(),
         }
-
-# from .db import db, environment, SCHEMA, add_prefix_for_prod
-# from werkzeug.security import generate_password_hash, check_password_hash
-# from flask_login import UserMixin
-
-
-# class User(db.Model, UserMixin):
-#     __tablename__ = 'users'
-
-#     if environment == "production":
-#         __table_args__ = {'schema': SCHEMA}
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(40), nullable=False, unique=True)
-#     email = db.Column(db.String(255), nullable=False, unique=True)
-#     hashed_password = db.Column(db.String(255), nullable=False)
-
-#     @property
-#     def password(self):
-#         return self.hashed_password
-
-#     @password.setter
-#     def password(self, password):
-#         self.hashed_password = generate_password_hash(password)
-
-#     def check_password(self, password):
-#         return check_password_hash(self.password, password)
-
-#     def to_dict(self):
-#         return {
-#             'id': self.id,
-#             'username': self.username,
-#             'email': self.email
-#         }
-
-

@@ -15,7 +15,11 @@ class Opportunity(db.Model):
     created_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    # Relationships
     company = db.relationship('Company', backref=db.backref('opportunities', lazy=True))
+    genres = db.relationship('Genre', secondary='opportunity_genres', backref=db.backref('opportunities', lazy='dynamic'))
+    media = db.relationship('Media', secondary='opportunity_media', backref=db.backref('opportunities', lazy='dynamic'))
+
 
     def to_dict(self):
         return {

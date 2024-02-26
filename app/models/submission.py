@@ -13,8 +13,12 @@ class Submission(db.Model):
     created_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    # Relationships
     creator = db.relationship('Creator', backref=db.backref('submissions', lazy=True))
     opportunity = db.relationship('Opportunity', backref=db.backref('submissions', lazy=True))
+    submission_media = db.relationship('SubmissionMedia', backref='submission', lazy='dynamic')
+    feedback = db.relationship('Feedback', backref='submission', lazy='dynamic')
+
 
     def to_dict(self):
         return {
