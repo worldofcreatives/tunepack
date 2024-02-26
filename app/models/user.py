@@ -21,6 +21,9 @@ class User(db.Model, UserMixin):
     createdDate = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updatedDate = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    # Relationships
+    subscriptions = db.relationship('Subscription', backref='user', lazy=True)
+
     @property
     def password(self):
         return self.hashed_password
