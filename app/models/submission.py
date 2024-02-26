@@ -28,5 +28,16 @@ class Submission(db.Model):
             'status': self.status,
             'isActive': self.is_active,
             'createdDate': self.created_date.isoformat(),
-            'updatedDate': self.updated_date.isoformat()
+            'updatedDate': self.updated_date.isoformat(),
+            'media': [
+                {
+                    'mediaId': sm.media.id,
+                    'name': sm.media.name,
+                    'file': sm.media.file,
+                    'fileType': sm.media.file_type,
+                    'fileSize': sm.media.file_size,
+                    'duration': sm.media.duration,
+                    'userId': sm.media.user_id
+                } for sm in self.submission_media
+            ]
         }

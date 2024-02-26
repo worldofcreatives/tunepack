@@ -19,6 +19,7 @@ class Opportunity(db.Model):
     company = db.relationship('Company', backref=db.backref('opportunities', lazy=True))
     genres = db.relationship('Genre', secondary='opportunity_genres', backref=db.backref('opportunities', lazy='dynamic'))
     media = db.relationship('Media', secondary='opportunity_media', backref=db.backref('opportunities', lazy='dynamic'))
+    types = db.relationship('Type', secondary='opportunity_types', backref=db.backref('opportunities', lazy='dynamic'))
 
 
     def to_dict(self):
@@ -27,6 +28,8 @@ class Opportunity(db.Model):
             'name': self.name,
             'description': self.description,
             'targetAudience': self.target_audience,
+            'genres': [genre.name for genre in self.genres],
+            'types': [type.name for type in self.types],
             'budget': float(self.budget) if self.budget else None,
             'guidelines': self.guidelines,
             'companyId': self.company_id,

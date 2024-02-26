@@ -6,14 +6,13 @@ class Genre(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), nullable=False)
 
-    # Relationship with Creators through CreatorGenre
+    # Updated relationships to use CreatorGenre
     creators = db.relationship(
         'Creator',
         secondary='creator_genres',
-        backref=db.backref('genres', lazy='dynamic')
+        back_populates='genres'
     )
 
-    # Relationship with Opportunities through OpportunityGenre
     opportunities = db.relationship(
         'Opportunity',
         secondary='opportunity_genres',

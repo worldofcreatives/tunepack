@@ -9,7 +9,7 @@ class Company(db.Model):
     name = db.Column(db.String(255), nullable=False)
     company_name = db.Column(db.String(255), nullable=False)
     bio = db.Column(db.Text, nullable=True)
-    logo = db.Column(db.String(255), nullable=True)
+    logo = db.Column(db.String(500), nullable=True, default="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg")
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     created_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)

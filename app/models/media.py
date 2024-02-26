@@ -6,10 +6,10 @@ class Media(db.Model):
     __tablename__ = 'media'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), nullable=False)
-    file = db.Column(db.String(255), nullable=False)
-    file_type = db.Column(ENUM('mp3', 'wav', 'jpg', 'png', name='file_types'), nullable=False)
-    file_size = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String(500), nullable=False)
+    file = db.Column(db.String(500), nullable=False)
+    file_type = db.Column(ENUM('mp3', 'wav', 'jpg', 'png', name='file_types'), nullable=True)
+    file_size = db.Column(db.Integer, nullable=True)
     duration = db.Column(db.Integer, nullable=True)  # Nullable for non-audio/video files
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     is_active = db.Column(db.Boolean, nullable=False, default=True)
