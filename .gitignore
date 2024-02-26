@@ -6,6 +6,8 @@ __pycache__/
 .vscode/
 dev.db
 
+docs/
+
 # Logs
 logs
 *.log
